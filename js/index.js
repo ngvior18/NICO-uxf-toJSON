@@ -99,9 +99,9 @@ _- id: int_
 - alumnos
 m1=*</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element></diagram>`;
 
-let json = xmlToJSON.parseString(uxf);
+// let json = xmlToJSON.parseString(uxf);
 
-console.log("alverto", json);
+// console.log("alverto", json);
 // ******************************************
 const inputUxf = document.getElementById("inputUxf");
 // const form = document.getElementById("uxfToJavaForm");
@@ -124,6 +124,9 @@ async function processUploadFile(evt) {
       console.log("Json de xml:", xmlAsJson);
 
       diagram = xmlToClassDiagram(xmlAsJson);
+
+      // funcion render con EJS
+      // generarInterfazClases(diagram)
 
       console.log("diagramJSON: ", JSON.stringify(diagram));
 
