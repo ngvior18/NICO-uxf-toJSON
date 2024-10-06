@@ -110,6 +110,34 @@ const inputUxf = document.getElementById("inputUxf");
 //   "msjInicialBtnDescargar"
 // );
 
+function processClass(clase) {
+  try {
+    //class vacia
+    let clazz = {};
+
+    //procesar nombre
+    let name = `${clase.tipo} ${clase.nombre}`;
+    if (clase.superclase) {
+      name += ` extends ${clase.superclase.nombre}`;
+    }
+    //Convertir el Set de interfaces a un array
+    let interfacesArray = Array.from(clase.interfaces);
+    if (interfacesArray.length > 0) {
+      name += ` implements ${interfacesArray.map((i) => i.nombre).join(", ")}`;
+    }
+    console.log(`name: ${name}`);
+
+    
+
+
+  } catch (e) {
+    console.error(e);
+  }
+
+  
+
+}
+
 let xmlAsJson = undefined;
 let diagram = undefined;
 
@@ -128,7 +156,12 @@ async function processUploadFile(evt) {
       // funcion render con EJS
       // generarInterfazClases(diagram)
 
-      console.log("diagramJSON: ", JSON.stringify(diagram));
+      console.log("diagramJSON: ", diagram);
+
+      diagram.clases.forEach((c, i) => {
+        console.log(`clase ${i + 1}`);
+        processClass(c);
+      });
 
       // activarBtnDescarga(true);
     } catch (e) {
