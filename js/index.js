@@ -127,8 +127,10 @@ function processClass(clase) {
     }
     console.log(`name: ${name}`);
 
-    
-
+    const cr = new ClassesRenderer(clase, 'pedro');
+    const element = cr.render();
+    const classContainer = document.getElementById("classesContainer");
+    classContainer.innerHTML = element;
 
   } catch (e) {
     console.error(e);
