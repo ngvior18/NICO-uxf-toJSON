@@ -126,18 +126,15 @@ function processClass(clase) {
       name += ` implements ${interfacesArray.map((i) => i.nombre).join(", ")}`;
     }
     console.log(`name: ${name}`);
+    //guardar nombres de clases de herencia e interfaces
 
-    const cr = new ClassesRenderer(clase, 'pedro');
+    const cr = new ClassesRenderer(clase, "pedro");
     const element = cr.render();
     const classContainer = document.getElementById("classesContainer");
     classContainer.innerHTML = element;
-
   } catch (e) {
     console.error(e);
   }
-
-  
-
 }
 
 let xmlAsJson = undefined;
@@ -179,6 +176,20 @@ function getFile() {
   return this.inputUxf.files[0];
 }
 
+function xmlToClassDiagram(xmlAsJson) {
+  const zoomLevel = xmlAsJson?.diagram[0]?.zoom_level[0]?._text;
+  const elements = xmlAsJson?.diagram[0]?.element;
+  const filename = getFileName();
+  // const tipoColeccion = getRadioButtonCheckeado("tipoColeccion")?.value;
+  const tipoColeccion = "ArrayList";
+  return Diagrama.parse(filename, parseInt(zoomLevel), elements, tipoColeccion);
+}
+
+function getFileName() {
+  // "Archivo.uxf" --> "Archivo"
+  return getFile().name.split(".")[0];
+}
+
 //Not used
 const processDownloadProject = async () => {
   evt.preventDefault();
@@ -197,20 +208,6 @@ const processDownloadProject = async () => {
     console.error(e);
   }
 };
-
-function xmlToClassDiagram(xmlAsJson) {
-  const zoomLevel = xmlAsJson?.diagram[0]?.zoom_level[0]?._text;
-  const elements = xmlAsJson?.diagram[0]?.element;
-  const filename = getFileName();
-  // const tipoColeccion = getRadioButtonCheckeado("tipoColeccion")?.value;
-  const tipoColeccion = "ArrayList";
-  return Diagrama.parse(filename, parseInt(zoomLevel), elements, tipoColeccion);
-}
-
-function getFileName() {
-  // "Archivo.uxf" --> "Archivo"
-  return getFile().name.split(".")[0];
-}
 
 // function activarBtnDescarga(flag) {
 //   btnDescarga.disabled = !flag;
