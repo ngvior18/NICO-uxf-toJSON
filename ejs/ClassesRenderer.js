@@ -7,7 +7,7 @@ class ClassesRenderer {
     render() {
         return ejs.render(`
             <div>
-                <h1>Hola <%= saludo %></h1>
+                <h1 class="saludo">Hola <%= saludo %></h1>
             </div>
         `, {saludo: this.saludo});
     }
